@@ -41,24 +41,19 @@ app.get('/users/:id', (req, res) => {
 app.put('/users/:id', (req, res) => {
     const { id } = req.params; // Extract the id from the URL parameters
     const { name, email } = req.body;
-
     // Validate that both name and email are provided
     if (!name || !email) {
         return res.status(400).json({ error: 'Name and email are required.' });
     }
-
     // Find the user with the matching id
     const user = users.find(u => u.id === parseInt(id));
-
     // If user is not found, return a 404 error
     if (!user) {
         return res.status(404).json({ error: 'User not found.' });
     }
-
     // Update the user's information
     user.name = name;
     user.email = email;
-
     // Respond with the updated user details
     res.status(200).json(user);
 });
